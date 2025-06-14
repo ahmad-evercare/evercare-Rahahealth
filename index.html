@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نموذج حجز - RahaHealth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; background-color: #f0f0f0; margin: 0; padding: 20px; }
+    .container { background: white; max-width: 700px; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px #ccc; direction: rtl; }
+    .logo { text-align: center; margin-bottom: 30px; }
+    .logo img { max-width: 200px; }
+    label { display: block; margin-top: 20px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+    input[type="datetime-local"] { direction: ltr; }
+    button { margin-top: 30px; background-color: #4CAF50; color: white; padding: 15px 25px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; display: block; width: 100%; }
+    .thank-you { display: none; text-align: center; font-size: 18px; color: #4CAF50; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="RahaHealth Logo">
+    </div>
+    <h2>نموذج حجز خدمة</h2>
+    <form id="bookingForm">
+      <label>اسم العميل *</label>
+      <input type="text" name="client_name" required>
+      <label>رقم هوية العميل *</label>
+      <input type="text" name="client_id" required>
+      <label>العمر *</label>
+      <input type="number" name="age" required>
+      <label>الحساسية</label>
+      <textarea name="allergy" rows="4" placeholder="اذكر إن وُجدت..."></textarea>
+      <label>وقت توصيل الجرعة</label>
+      <input type="datetime-local" name="delivery_time">
+      <label>الخدمة المطلوبة *</label>
+      <input type="text" name="service" required>
+      <label>رقم جوال العميل</label>
+      <input type="tel" name="client_phone" pattern="[0-9]{10}" placeholder="05xxxxxxxx">
+      <button type="submit">إرسال الحجز</button>
+    </form>
+    <div class="thank-you" id="thankYouMessage">✅ تم إرسال الحجز بنجاح!</div>
+  </div>
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        client_name: form.client_name.value,
+        client_id: form.client_id.value,
+        age: form.age.value,
+        allergy: form.allergy.value,
+        delivery_time: form.delivery_time.value,
+        service: form.service.value,
+        client_phone: form.client_phone.value,
+        source_form: "raha"
+      };
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbzn0gezxKgKflD0uoRgg0hOc6kYR4YbSvvF1gd5vQmM3Rx7nq1gqH76EzymDF0AZKdc/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        form.style.display = "none";
+        document.getElementById("thankYouMessage").style.display = "block";
+      } catch (err) {
+        alert("حدث خطأ أثناء الإرسال.");
+      }
+    });
+  </script>
+</body>
+</html>
