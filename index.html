@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نموذج حجز - Evercare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; background-color: #f0f0f0; margin: 0; padding: 20px; }
+    .container { background: white; max-width: 700px; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px #ccc; direction: rtl; }
+    .logo { text-align: center; margin-bottom: 30px; }
+    .logo img { max-width: 200px; }
+    label { display: block; margin-top: 20px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+    input[type="datetime-local"] { direction: ltr; }
+    button { margin-top: 30px; background-color: #4CAF50; color: white; padding: 15px 25px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; display: block; width: 100%; }
+    .thank-you { display: none; text-align: center; font-size: 18px; color: #4CAF50; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="Evercare Logo">
+    </div>
+    <h2>نموذج حجز خدمة</h2>
+    <form id="bookingForm">
+      <label>اسم العميل *</label>
+      <input type="text" name="client_name" required>
+      <label>رقم هوية العميل *</label>
+      <input type="text" name="client_id" required>
+      <label>العمر *</label>
+      <input type="number" name="age" required>
+      <label>الحساسية</label>
+      <textarea name="allergy" rows="4" placeholder="اذكر إن وُجدت..."></textarea>
+      <label>وقت توصيل الجرعة</label>
+      <input type="datetime-local" name="delivery_time">
+      <label>الخدمة المطلوبة *</label>
+      <select name="service" required>
+        <option disabled selected>اختر الخدمة</option>
+        <option>جلسة الإكسير</option>
+<option>باقة الإكسير</option>
+<option>جلسة الناد +NAD</option>
+<option>الناد +NAD جلسة 250Ml</option>
+<option>باقة الناد +NAD</option>
+<option>جلسة الديتوكس الوريدي</option>
+<option>باقة الديتوكس الوريدي</option>
+<option>غلوتاثيون (1800mg)</option>
+<option>غلوتاثيون (1800mg) + Vitmain C</option>
+<option>باقة غلوتاثيون (1800mg) + Vitmain C</option>
+<option>باقة غلوتاثيون (1800mg)</option>
+<option>جلسة النضارة والجمال</option>
+<option>باقة النضارة والجمال</option>
+<option>جلسة فيتامينات لتساقط الشعر</option>
+<option>باقة فيتامينات لتساقط الشعر</option>
+<option>جلسة القوة والنشاط</option>
+<option>باقة القوة والنشاط</option>
+<option>جلسة ما بعد عمليات السمنة</option>
+<option>باقة ما بعد عمليات السمنة</option>
+<option>جلسة الكو انزيم COq10</option>
+<option>باقة الكو انزيم COq10</option>
+<option>جلسة تعزيز المناعة</option>
+<option>باقة تعزيز المناعة</option>
+<option>جلسة محفز انقاص الوزن</option>
+<option>باقة محفز انقاص الوزن</option>
+<option>جلسة الترطيب الوريدي</option>
+<option>باقة الترطيب الوريدي</option>
+<option>جلسة الأمينو أسيد</option>
+<option>باقة الأمينو أسيد</option>
+<option>باقة الحديد</option>
+<option>باقة الحديد المكثف</option>
+<option>أوميغا 3</option>
+<option>أوميغا 6</option>
+<option>أوميغا 9</option>
+<option>فيتامينات ب المركب</option>
+<option>فيتامين ب12</option>
+<option>فيتامين ب6</option>
+<option>فيتامين ب5</option>
+<option>فيتامين ب2</option>
+<option>فيتامين ب1</option>
+<option>مغنزيوم</option>
+<option>فيتامين سي</option>
+<option>كالسيوم</option>
+<option>إبرة فيتامين دال</option>
+<option>جلسة تعزيز الذاكرة</option>
+      </select>
+      <label>رقم جوال العميل</label>
+      <input type="tel" name="client_phone" pattern="[0-9]{10}" placeholder="05xxxxxxxx">
+      <button type="submit">إرسال الحجز</button>
+    </form>
+    <div class="thank-you" id="thankYouMessage">✅ تم إرسال الحجز بنجاح!</div>
+  </div>
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        client_name: form.client_name.value,
+        client_id: form.client_id.value,
+        age: form.age.value,
+        allergy: form.allergy.value,
+        delivery_time: form.delivery_time.value,
+        service: form.service.value,
+        client_phone: form.client_phone.value
+      };
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbzlcGNNp1rzAqAZpvdobUel1dFChRduSH4nf2Upe79jc0x3ju0_HW6YyuqvVm9J74nd/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        form.style.display = "none";
+        document.getElementById("thankYouMessage").style.display = "block";
+      } catch (err) {
+        alert("حدث خطأ أثناء الإرسال.");
+      }
+    });
+  </script>
+</body>
+</html>
