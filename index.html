@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>نموذج حجز - راها الطبي</title>
+  <title>نموذج حجز - RahaHealth</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: sans-serif; background-color: #f0f0f0; margin: 0; padding: 20px; }
@@ -19,25 +19,20 @@
 <body>
   <div class="container">
     <div class="logo">
-      <img src="logo.png" alt="راها الطبي Logo">
+      <img src="logo.png" alt="RahaHealth Logo">
     </div>
-    <h2>نموذج حجز خدمة - راها الطبي</h2>
+    <h2>نموذج حجز خدمة</h2>
     <form id="bookingForm">
       <label>اسم العميل *</label>
       <input type="text" name="client_name" required>
-      
       <label>رقم هوية العميل *</label>
       <input type="text" name="client_id" required>
-      
       <label>العمر *</label>
       <input type="number" name="age" required>
-      
       <label>الحساسية</label>
       <textarea name="allergy" rows="4" placeholder="اذكر إن وُجدت..."></textarea>
-      
       <label>وقت توصيل الجرعة</label>
       <input type="datetime-local" name="delivery_time">
-      
       <label>الخدمة المطلوبة *</label>
       <select name="service" required>
         <option disabled selected>اختر الخدمة</option>
@@ -87,15 +82,12 @@
         <option>إبرة فيتامين دال</option>
         <option>جلسة تعزيز الذاكرة</option>
       </select>
-      
       <label>رقم جوال العميل</label>
       <input type="tel" name="client_phone" pattern="[0-9]{10}" placeholder="05xxxxxxxx">
-      
       <button type="submit">إرسال الحجز</button>
     </form>
-    <div class="thank-you" id="thankYouMessage">✅ تم إرسال الحجز بنجاح!</div>
+    <div class="thank-you" id="thankYouMessage">✅ تم إرسال الحجز بنجاح! (المصدر: raha)</div>
   </div>
-  
   <script>
     document.getElementById('bookingForm').addEventListener('submit', async function (e) {
       e.preventDefault();
@@ -108,12 +100,10 @@
         delivery_time: form.delivery_time.value,
         service: form.service.value,
         client_phone: form.client_phone.value,
-        source_form: "راها الطبي"
+        source_form: "raha"
       };
-      
       try {
-        // ضع رابط Google Apps Script الخاص بك هنا
-        await fetch("https://script.google.com/macros/s/AKfycbzm5W0DLH6SD48ZmJsOUVq628oielxnMs9zX7xQj9IWBO0kvwtdtBuYrBwpQiusRrpR/exec", {
+        await fetch("https://script.google.com/macros/s/AKfycbzn0gezxKgKflD0uoRgg0hOc6kYR4YbSvvF1gd5vQmM3Rx7nq1gqH76EzymDF0AZKdc/exec", {
           method: "POST",
           mode: "no-cors",
           headers: { "Content-Type": "application/json" },
